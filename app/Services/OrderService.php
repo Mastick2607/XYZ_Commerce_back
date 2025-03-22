@@ -30,22 +30,24 @@ class OrderService
         // Crear la orden
         DB::beginTransaction();
         try {
-            $order = new Order();
-            $order->client_id = $client->id;
-            $order->save();
+         
+            $order = Order::create([
+            'client_id' => $client->id,
+            ]);
 
-            // Crear detalles de la orden y actualizar stock
             foreach ($products as $productData) {
                 $product = Product::find($productData['product_id']);
-                $orderDetail = new Order_detail([
+                
+                Order_detail::create([
                     'order_id' => $order->id,
                     'product_id' => $product->id,
                     'quantity' => $productData['quantity'],
                 ]);
-                $orderDetail->save();
+                // $orderDetail->save();
 
-                $product->stock -= $productData['quantity'];
-                $product->save();
+                $product->decrement('quantity', $productData['quantity']);
+                // $product->stock -= $productData['quantity'];
+                // $product->save();
             }
 
             DB::commit();

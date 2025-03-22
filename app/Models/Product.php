@@ -9,10 +9,14 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable=[
+        'name',
+        'quantity',
+       ];
 
     public function clients()
 {
-    return $this->belongsToMany(Client::class, 'client_product');
+    return $this->belongsToMany(Client::class, 'client_products');
 }
 
 public function orderDetails()

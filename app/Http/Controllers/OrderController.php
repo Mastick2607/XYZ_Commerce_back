@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Order;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -10,6 +12,16 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     protected $orderService;
+
+    // Inyectar el servicio en el constructor
+    public function __construct(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+    }
+
+    
     public function index()
     {
         //
@@ -28,7 +40,26 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $client = Client::find($request->client_id);
+        $products = $request->products;
+
+
+        try {
+        
+            $order = $this->orderService->createOrder($client, $products);
+
+            // Retornar una respuesta exitosa
+            return response()->json([
+                'message' => 'Orden creada exitosamente',
+                'order_id' => $order->id,
+            ], 201);
+        } catch (\Exception $e) {
+         
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 400);
+        }
+        
     }
 
     /**

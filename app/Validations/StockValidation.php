@@ -12,7 +12,7 @@ class StockValidation implements ValidationInterface
     {
         foreach ($products as $productData) {
             $product = Product::find($productData['product_id']);
-            if ($product->stock < $productData['quantity']) {
+            if ($product->quantity < $productData['quantity']) {
                 throw new Exception("No hay suficiente stock para el producto {$product->name}.");
             }
         }

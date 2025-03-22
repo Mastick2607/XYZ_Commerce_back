@@ -9,11 +9,16 @@ class Client extends Model
 {
     use HasFactory;
 
+    
+    protected $fillable=[
+        'name',
+        'email',
+       ];
 
 
     public function products()
 {
-    return $this->belongsToMany(Product::class, 'client_product');
+    return $this->belongsToMany(Product::class, 'client_products');
 }
 
 
