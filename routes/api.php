@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//ruta clientes
+Route::get('/client',[ClientController::class,('index')]);
+//ruta productos
+Route::get('/product',[ProductController::class,('index')]);
+//ruta ordenes
 Route::post('/order',[OrderController::class,('store')]);
 
 

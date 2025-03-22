@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -10,9 +11,30 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+    protected $productService;
+
+
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
+
     public function index()
     {
-        //
+        $products = $this->productService->getAllProducts();
+
+
+        if ($products->isEmpty()) {
+
+            $data = [
+                'mensaje' => 'No hay productos disponibles.',
+                'status' => 404 
+            ];  
+
+            return response()->json($data,404);     
+        }
+    
+        return response()->json($products);
     }
 
     /**
