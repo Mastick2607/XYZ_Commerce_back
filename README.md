@@ -51,12 +51,18 @@ DB_PASSWORD=
 - Dar "Start" al boton de Mysql
 - Dar "Start" al boton de Apache
 
-6. En caso de que apache tenga inconvientes, escribe este comando en consola para que funcionen las peticiones:
+  6. instalar composer:
+
+```bash
+ composer install
+```
+
+7. En caso de que apache tenga inconvientes, escribe este comando en consola para que funcionen las peticiones:
 
 ```bash
  php artisan serve
 ```
-7. Migrar las tablas
+8. Migrar las tablas
 ```bash
  php artisan migrate
 ```
