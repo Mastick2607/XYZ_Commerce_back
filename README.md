@@ -28,11 +28,17 @@ API para gestión de órdenes de compra que permite:
 - Sigue las instrucciones del asistente de instalación
 - Asegúrate de que la opción "Add to PATH" esté marcada para poder usar composer desde cualquier directorio
 - Abre una nueva ventana de CMD o PowerShell y ejecuta:
-
+  
 ```bash
  composer --version
 ```
-3. Editar el archivo .env con las credenciales:
+
+3. Sí ya tienes composer ejecuta esto:
+```bash
+composer install
+```
+   
+4. Editar el archivo .env con las credenciales:
 
 
 ```bash
@@ -43,19 +49,13 @@ DB_DATABASE=xyz_commerce
 DB_USERNAME=root
 DB_PASSWORD=
 ```
-4. Crear la base de datos:
+5. Crear la base de datos:
 - Crear la base de datos en PhpMyAdmin con el nombre xyz_commerce
 
-5. Activar servicios del paquete de servidor local:
+6. Activar servicios del paquete de servidor local:
 
 - Dar "Start" al boton de Mysql
 - Dar "Start" al boton de Apache
-
- 5. Instalar composer:
-
-```bash
- composer install
-```
 
 7. En caso de que apache tenga inconvientes, escribe este comando en consola para que funcionen las peticiones:
 
