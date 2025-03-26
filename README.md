@@ -51,7 +51,7 @@ DB_PASSWORD=
 - Dar "Start" al boton de Mysql
 - Dar "Start" al boton de Apache
 
-  6. instalar composer:
+ 5. Instalar composer:
 
 ```bash
  composer install
