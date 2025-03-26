@@ -94,6 +94,8 @@ Las migraciones crearán las siguientes tablas:
     ]
 }
 ```
+## Todos los registros de las tablas se insertan una vez que se colocoque el comando *php artisan migrate*
+
 # Registro de la tabla "Clients"
 
   ```bash
