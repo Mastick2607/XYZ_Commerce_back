@@ -1,66 +1,153 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Backend API en Laravel - XYZ Commerce
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Descripción
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+API para gestión de órdenes de compra que permite:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Verificar disponibilidad de productos para clientes
+- Validar stock antes de crear órdenes
+- Registrar órdenes y actualizar inventario
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 Instalación
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. Clonar el repositorio
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+  git clone https://github.com/Mastick2607/XYZ_Commerce_back.git
+  cd XYZ_Commerce_back
+  code . //para abrir el proyecto
+```
 
-## Laravel Sponsors
+2. Instalar composer sino se tiene
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Visita https://getcomposer.org/download/
+- Descarga el archivo 'Composer-Setup.exe'
+- Sigue las instrucciones del asistente de instalación
+- Asegúrate de que la opción "Add to PATH" esté marcada para poder usar composer desde cualquier directorio
+- Abre una nueva ventana de CMD o PowerShell y ejecuta:
 
-### Premium Partners
+```bash
+ composer --version
+```
+3. Editar el archivo .env con las credenciales:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=xyz_commerce
+DB_USERNAME=root
+DB_PASSWORD=
+```
+4. Crear la base de datos:
+- Crear la base de datos en PhpMyAdmin con el nombre xyz_commerce
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. Activar servicios del paquete de servidor local:
 
-## Code of Conduct
+- Dar "Start" al boton de Mysql
+- Dar "Start" al boton de Apache
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. En caso de que apache tenga inconvientes, escribe este comando en consola para que funcionen las peticiones:
 
-## Security Vulnerabilities
+```bash
+ php artisan serve
+```
+7. Migrar las tablas
+```bash
+ php artisan migrate
+```
+El API estará disponible en: http://localhost:8000
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 📊 Estructura de Base de Datos
+Las migraciones crearán las siguientes tablas:
+- *clients* - Información de clientes
+- *products* - Catálogo de productos
+- *client_product* - Relación muchos a muchos (productos disponibles por cliente)
+- *orders* - Registro de órdenes
+- *order_details* - Detalles de productos en cada orden
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 🔌 Endpoints Principales
+
+## Clientes
+*GET*  http://localhost:8000/api/client 
+
+## Productos
+*GET*  http://localhost:8000/api/product 
+
+## Ordenes
+*PosT*  http://localhost:8000/api/order
+
+```bash
+{
+    "client_id": 1,
+    "products": [
+        {
+            "product_id": 1,
+            "quantity": 2
+        }
+       
+    ]
+}
+```
+# Registro de la tabla "Clients"
+
+  ```bash
+       DB::table('clients')->insert([
+            [
+                'name' => 'pepe perez',
+                'email' => 'pepe@gmail.com',
+            ],
+            [
+                'name' => 'maria rodriguez',
+                'email' => 'maria@gmail.com',
+            ],
+            [
+                'name' => 'juan cortes',
+                'email' => 'juan@gmail.com',
+            ]
+
+        ]);
+```          
+
+# Registro de la tabla "products"
+
+  ```bash
+      DB::table('products')->insert([
+            [
+                'name' => 'tv',
+                'quantity' => 10,
+            ],
+            [
+                'name' => 'licuadora',
+                'quantity' => 10,
+            ],
+            [
+                'name' => 'portatil',
+                'quantity' => 100,
+            ]
+
+        ]);
+```  
+
+
+# Registro de la tabla "client_products"
+
+  ```bash
+     DB::table('client_products')->insert([
+            ['client_id' => 1, 'product_id' => 2],
+            ['client_id' => 2, 'product_id' => 1],
+            ['client_id' => 3, 'product_id' => 3],
+            ['client_id' => 1, 'product_id' => 1],
+        ]);
+```  
+
+# Disponibilidad de productos para clientes
+
+- *pepe perez* solo puede acceder a los productos *TV* y *licuadora*
+- *maria rodriguez* solo puede acceder a los productos *TV* 
+- *juan cortes* solo puede acceder a los productos *portatil*

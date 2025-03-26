@@ -6,6 +6,8 @@ use App\Models\Client;
 use App\Models\Order;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
+use App\Exceptions\StockValidationException;
+use App\Exceptions\ProductAvailabilityException;
 
 class OrderController extends Controller
 {
@@ -53,12 +55,20 @@ class OrderController extends Controller
                 'message' => 'Orden creada exitosamente',
                 'order_id' => $order->id,
             ], 201);
-        } catch (\Exception $e) {
-         
+        } catch (StockValidationException $e) {
             return response()->json([
                 'error' => $e->getMessage(),
             ], 400);
+        } catch (ProductAvailabilityException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 400);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error al crear la orden.',
+            ], 500);
         }
+    
         
     }
 

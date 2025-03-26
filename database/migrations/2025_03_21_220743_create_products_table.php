@@ -27,7 +27,7 @@ return new class extends Migration
             ],
             [
                 'name' => 'licuadora',
-                'quantity' => 0,
+                'quantity' => 10,
             ],
             [
                 'name' => 'portatil',

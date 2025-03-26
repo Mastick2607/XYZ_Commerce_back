@@ -4,7 +4,9 @@ namespace App\Validations;
 
 use App\Models\Client;
 use App\Models\Product;
-use Exception;
+use App\Exceptions\ProductAvailabilityException;
+
+// use Exception;
 
 class ProductAvailabilityValidation implements ValidationInterface
 {
@@ -13,7 +15,7 @@ class ProductAvailabilityValidation implements ValidationInterface
         foreach ($products as $productData) {
             $product = Product::find($productData['product_id']);
             if (!$client->products->contains($product->id)) {
-                throw new Exception("El producto {$product->name} no está disponible para este cliente.");
+                throw new ProductAvailabilityException("El producto {$product->name} no está disponible para este cliente.");
             }
         }
     }

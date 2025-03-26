@@ -35,8 +35,13 @@ class ClientController extends Controller
 
             return response()->json($data,404);     
         }
+
+        $data = [
+            'mensaje' => 'clientes disponibles.',
+            'clients' => $clients
+        ]; 
     
-        return response()->json($clients);
+        return response()->json($data);
     }
 
     /**

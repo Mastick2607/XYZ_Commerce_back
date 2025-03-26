@@ -34,7 +34,11 @@ class ProductController extends Controller
             return response()->json($data,404);     
         }
     
-        return response()->json($products);
+        $data = [
+            'mensaje' => 'Productos disponibles.',
+            'products' => $products 
+        ]; 
+        return response()->json($data);
     }
 
     /**
